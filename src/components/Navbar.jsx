@@ -9,8 +9,10 @@ export default function Navbar() {
   const [cartView, setCartView] = useState(false);
   const navigate = useNavigate();
 
+
 const handleLogout = () => {
   localStorage.removeItem("authToken");
+  localStorage.removeItem("userEmail");
   navigate("/login");
 }
 
@@ -30,7 +32,7 @@ const handleLogout = () => {
               </li>
               {(localStorage.getItem("authToken")) ?
                 <li className="nav-item">
-                  <Link className="nav-link active fs-5" aria-current="page" to="/">My Orders</Link>
+                  <Link className="nav-link active fs-5" aria-current="page" to="/myOrder">My Orders</Link>
                 </li>
                 : ""}
 

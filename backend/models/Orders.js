@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const OrdersSchema = new Schema({
+const OrderSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -13,3 +13,5 @@ const OrdersSchema = new Schema({
     },
 
 });
+
+module.exports = mongoose.model('order', OrderSchema);    

@@ -66,11 +66,11 @@ export default function Home() {
                 <span className="carousel-control-next-icon" aria-hidden="true"></span>
                 <span className="visually-hidden">Next</span>
             </button></div></div>
-      <div className='container'>
+      <div className='container mt-5'>
         {
           foodCat !== []
             ? foodCat.map((data) => {
-              return ( <div className='row mb-3'>
+              return ( <div className='row g-4 mb-3'>
                 <div key={data._id} className='fs-3 m-3'>
                   {data.CategoryName}
                 </div>
@@ -79,7 +79,7 @@ export default function Home() {
                   ? foodItem.filter((item) => (item.CategoryName === data.CategoryName) && (item.name.toLowerCase().includes(search.toLocaleLowerCase())) )
                     .map(filterItems => {
                       return (
-                        <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
+                        <div key={filterItems._id} className='col-12 col-md-6 col-lg-3 mb-4 d-flex justify-content-center'>
                           <Card foodItem={filterItems}
                                 options={filterItems.options[0]}
                                  />
