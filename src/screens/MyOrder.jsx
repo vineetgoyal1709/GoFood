@@ -1,101 +1,366 @@
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react';
+// import Footer from '../components/Footer';
+// import Navbar from '../components/Navbar';
+
+// export default function MyOrder() {
+
+//     const [orderData, setorderData] = useState({});
+
+//     const fetchMyOrder = async () => {
+//         await fetch("http://localhost:5000/api/myOrderData", {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 email: localStorage.getItem('userEmail')
+//             })
+//         }).then(async (res) => {
+//             let response = await res.json();
+//             setorderData(response);
+//         });
+//     };
+
+//     useEffect(() => {
+//         fetchMyOrder();
+//     }, []);
+
+//     return (
+//         <div style={{ minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
+
+//             <Navbar />
+
+//             <div className="container py-4">
+
+//                 <h1
+//                     className="text-center mb-5 fw-bold text-success"
+//                     style={{ letterSpacing: "1px" }}
+//                 >
+//                     🍽️ My Orders
+//                 </h1>
+
+//                 <div className="row">
+
+//                     {orderData !== {} ?
+//                         Array(orderData).map((data) => {
+
+//                             return (
+//                                 data.orderData ?
+
+//                                     data.orderData.order_data
+//                                         .slice(0)
+//                                         .reverse()
+//                                         .map((item, index) => {
+
+//                                             return (
+
+//                                                 <React.Fragment key={index}>
+
+//                                                     {item.map((arrayData, i) => {
+
+//                                                         if (arrayData.Order_date) {
+//                                                             return (
+//                                                                 <div
+//                                                                     key={i}
+//                                                                     className="col-12 mt-4"
+//                                                                 >
+//                                                                     <div
+//                                                                         className="bg-success text-white p-3 rounded shadow"
+//                                                                         style={{
+//                                                                             fontSize: "1.1rem",
+//                                                                             fontWeight: "600"
+//                                                                         }}
+//                                                                     >
+//                                                                         <span>
+//                                                                             📅{" "}
+//                                                                             {new Date(
+//                                                                                 arrayData.Order_date
+//                                                                             ).toLocaleDateString(
+//                                                                                 "en-GB",
+//                                                                                 {
+//                                                                                     day: "numeric",
+//                                                                                     month: "long",
+//                                                                                     year: "numeric"
+//                                                                                 }
+//                                                                             )}
+//                                                                         </span>
+
+//                                                                         <span className="mx-4">
+//                                                                             |
+//                                                                         </span>
+
+//                                                                         <span>
+//                                                                             🕒{" "}
+//                                                                             {new Date(
+//                                                                                 arrayData.Order_date
+//                                                                             ).toLocaleTimeString(
+//                                                                                 "en-US",
+//                                                                                 {
+//                                                                                     hour: "numeric",
+//                                                                                     minute: "2-digit",
+//                                                                                     hour12: true
+//                                                                                 }
+//                                                                             )}
+//                                                                         </span>
+//                                                                     </div>
+
+//                                                                     <hr className="border-success border-2" />
+//                                                                 </div>
+//                                                             );
+//                                                         }
+
+//                                                         return (
+//                                                             <div
+//                                                                 key={i}
+//                                                                 className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+//                                                             >
+//                                                                 <div
+//                                                                     className="card h-100 shadow-sm border-0"
+//                                                                     style={{
+//                                                                         borderRadius: "15px",
+//                                                                         overflow: "hidden"
+//                                                                     }}
+//                                                                 >
+//                                                                     <img
+//                                                                         src={arrayData.img}
+//                                                                         className="card-img-top"
+//                                                                         alt={arrayData.name}
+//                                                                         style={{
+//                                                                             height: "180px",
+//                                                                             objectFit: "cover"
+//                                                                         }}
+//                                                                     />
+
+//                                                                     <div className="card-body">
+
+//                                                                         <h5 className="card-title fw-bold">
+//                                                                             {arrayData.name}
+//                                                                         </h5>
+
+//                                                                         <div className="mb-3">
+
+//                                                                             <span className="badge bg-success me-2">
+//                                                                                 Qty: {arrayData.qty}
+//                                                                             </span>
+
+//                                                                             <span className="badge bg-secondary">
+//                                                                                 {arrayData.size}
+//                                                                             </span>
+
+//                                                                         </div>
+
+//                                                                         <h5 className="text-success fw-bold">
+//                                                                             ₹{arrayData.price}/-
+//                                                                         </h5>
+
+//                                                                     </div>
+//                                                                 </div>
+//                                                             </div>
+//                                                         );
+//                                                     })}
+
+//                                                 </React.Fragment>
+//                                             );
+//                                         })
+
+//                                     : ""
+//                             );
+//                         })
+
+//                         : ""}
+
+//                 </div>
+
+//             </div>
+
+//             <Footer />
+
+//         </div>
+//     );
+// }
+
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
 export default function MyOrder() {
 
-    const [orderData, setorderData] = useState({})
+    const [orderData, setorderData] = useState({});
 
     const fetchMyOrder = async () => {
-        console.log(localStorage.getItem('userEmail'))
         await fetch("http://localhost:5000/api/myOrderData", {
-            // credentials: 'include',
-            // Origin:"http://localhost:3000/login",
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({
-                email:localStorage.getItem('userEmail')
+            body: JSON.stringify({
+                email: localStorage.getItem('userEmail')
             })
         }).then(async (res) => {
-            let response = await res.json()
-            await setorderData(response)
-        })
-
-
-
-        // await res.map((data)=>{
-        //    console.log(data)
-        // })
-
-
-    }
+            let response = await res.json();
+            setorderData(response);
+        });
+    };
 
     useEffect(() => {
-        fetchMyOrder()
-    }, [])
+        fetchMyOrder();
+    }, []);
 
     return (
-        <div>
-            <div>
-                <Navbar />
-            </div>
+        <div
+            style={{
+                minHeight: "100vh",
+                backgroundColor: "#121212",
+                color: "white"
+            }}
+        >
+            <Navbar />
 
-            <div className='container'>
-                <div className='row'>
+            <div className="container py-5">
 
-                    {orderData !== {} ? Array(orderData).map(data => {
-                        return (
-                            data.orderData ?
-                                data.orderData.order_data.slice(0).reverse().map((item) => {
-                                    return (
-                                        item.map((arrayData) => {
+                <h1
+                    className="text-center text-success fw-bold mb-5"
+                    style={{
+                        letterSpacing: "2px",
+                        textTransform: "uppercase"
+                    }}
+                >
+                    🍽️ My Orders
+                </h1>
+
+                <div className="row">
+
+                    {orderData !== {} ?
+
+                        Array(orderData).map((data) => {
+
+                            return (
+                                data.orderData ?
+
+                                    data.orderData.order_data
+                                        .slice(0)
+                                        .reverse()
+                                        .map((item, index) => {
+
                                             return (
-                                                <div  >
-                                                    {arrayData.Order_date ? <div className='m-auto mt-5'>
 
-                                                        {data = arrayData.Order_date}
-                                                        <hr />
-                                                    </div> :
+                                                <React.Fragment key={index}>
 
-                                                        <div className='col-12 col-md-6 col-lg-3' >
-                                                            <div className="card mt-3" style={{ width: "16rem", maxHeight: "360px" }}>
-                                                                <img src={arrayData.img} className="card-img-top" alt="..." style={{ height: "120px", objectFit: "fill" }} />
-                                                                <div className="card-body">
-                                                                    <h5 className="card-title">{arrayData.name}</h5>
-                                                                    <div className='container w-100 p-0' style={{ height: "38px" }}>
-                                                                        <span className='m-1'>{arrayData.qty}</span>
-                                                                        <span className='m-1'>{arrayData.size}</span>
-                                                                        <span className='m-1'>{data}</span>
-                                                                        <div className=' d-inline ms-2 h-100 w-20 fs-5' >
-                                                                            ₹{arrayData.price}/-
+                                                    {item.map((arrayData, i) => {
+
+                                                        if (arrayData.Order_date) {
+                                                            return (
+                                                                <div
+                                                                    key={i}
+                                                                    className="col-12 mt-4 mb-3"
+                                                                >
+                                                                    <div
+                                                                        className="bg-success text-white p-3 rounded shadow-lg"
+                                                                        style={{
+                                                                            fontSize: "1.1rem",
+                                                                            fontWeight: "600"
+                                                                        }}
+                                                                    >
+                                                                        📅{" "}
+                                                                        {new Date(
+                                                                            arrayData.Order_date
+                                                                        ).toLocaleDateString(
+                                                                            "en-GB",
+                                                                            {
+                                                                                day: "numeric",
+                                                                                month: "long",
+                                                                                year: "numeric"
+                                                                            }
+                                                                        )}
+
+                                                                        <span className="mx-4">
+                                                                            |
+                                                                        </span>
+
+                                                                        🕒{" "}
+                                                                        {new Date(
+                                                                            arrayData.Order_date
+                                                                        ).toLocaleTimeString(
+                                                                            "en-US",
+                                                                            {
+                                                                                hour: "numeric",
+                                                                                minute: "2-digit",
+                                                                                hour12: true
+                                                                            }
+                                                                        )}
+                                                                    </div>
+
+                                                                    <hr className="border-success border-2" />
+                                                                </div>
+                                                            );
+                                                        }
+
+                                                        return (
+                                                            <div
+                                                                key={i}
+                                                                className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+                                                            >
+                                                                <div
+                                                                    className="card h-100 shadow border-success"
+                                                                    style={{
+                                                                        borderRadius: "15px",
+                                                                        overflow: "hidden",
+                                                                        backgroundColor: "#1e1e1e",
+                                                                        color: "white"
+                                                                    }}
+                                                                >
+                                                                    <img
+                                                                        src={arrayData.img}
+                                                                        className="card-img-top"
+                                                                        alt={arrayData.name}
+                                                                        style={{
+                                                                            height: "180px",
+                                                                            objectFit: "cover"
+                                                                        }}
+                                                                    />
+
+                                                                    <div className="card-body">
+
+                                                                        <h5 className="card-title fw-bold text-white">
+                                                                            {arrayData.name}
+                                                                        </h5>
+
+                                                                        <div className="mb-3">
+
+                                                                            <span className="badge bg-success me-2">
+                                                                                Qty: {arrayData.qty}
+                                                                            </span>
+
+                                                                            <span className="badge bg-secondary">
+                                                                                {arrayData.size}
+                                                                            </span>
+
                                                                         </div>
+
+                                                                        <h5 className="text-success fw-bold">
+                                                                            ₹{arrayData.price}/-
+                                                                        </h5>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        );
+                                                    })}
 
-                                                        </div>
-
-
-
-                                                    }
-
-                                                </div>
-                                            )
+                                                </React.Fragment>
+                                            );
                                         })
 
-                                    )
-                                }) : ""
-                        )
-                    }) : ""}
+                                    : ""
+                            );
+                        })
+
+                        : ""}
+
                 </div>
-
-
             </div>
 
             <Footer />
         </div>
-    )
+    );
 }
-// {"orderData":{"_id":"63024fd2be92d0469bd9e31a","email":"mohanDas@gmail.com","order_data":[[[{"id":"62ff20fbaed6a15f800125e9","name":"Chicken Fried Rice","qty":"4","size":"half","price":520},{"id":"62ff20fbaed6a15f800125ea","name":"Veg Fried Rice","qty":"4","size":"half","price":440}],"2022-08-21T15:31:30.239Z"],[[{"id":"62ff20fbaed6a15f800125f4","name":"Mix Veg Pizza","qty":"4","size":"medium","price":800},{"id":"62ff20fbaed6a15f800125f3","name":"Chicken Doub;e Cheeze Pizza","qty":"4","size":"regular","price":480}],"2022-08-21T15:32:38.861Z"]],"__v":0}}  

@@ -28,11 +28,11 @@ const handleLogout = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto mb-2 ">
               <li className="nav-item">
-                <Link className="nav-link active fs-5" aria-current="page" to="/">Home</Link>
+                <Link className="nav-link active fs-5 nav-hover mt-3" aria-current="page" to="/">Home</Link>
               </li>
               {(localStorage.getItem("authToken")) ?
                 <li className="nav-item">
-                  <Link className="nav-link active fs-5" aria-current="page" to="/myOrder">My Orders</Link>
+                  <Link className="nav-link active fs-5 nav-hover mt-3" aria-current="page" to="/myOrder">My Orders</Link>
                 </li>
                 : ""}
 
@@ -41,11 +41,11 @@ const handleLogout = () => {
               <div className="d-flex ">
 
 
-                <Link className="btn bg-white text-success mx-1 " to="/login">Login</Link>
-                <Link className="btn bg-white text-success mx-1 " to="/signup">Signup</Link>
+                <Link className="btn bg-white text-success mx-1 nav-hover" to="/login">Login</Link>
+                <Link className="btn bg-white text-success mx-1 nav-hover" to="/signup">Signup</Link>
               </div>
               : <div>
-                <div className="btn bg-white text-success mx-2" onClick={() => setCartView(true)}>
+                <div className="btn bg-white text-success mx-2 nav-hover" onClick={() => setCartView(true)}>
                   My Cart {" "}
                   <Badge bg="danger" className="ms-2">
                     {data.length}
@@ -53,7 +53,7 @@ const handleLogout = () => {
                 </div>
                 {cartView ? <Modal onClose={() => setCartView(false)}><Cart /></Modal> : null}
 
-                <div className="btn bg-white text-danger mx-2" onClick={handleLogout}>Logout</div>
+                <div className="btn bg-white text-danger mx-2 nav-hover" onClick={handleLogout}>Logout</div>
               </div>
 
 

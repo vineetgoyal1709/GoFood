@@ -16,4 +16,20 @@ code {
 #carousel{
   max-height: 500px;
 }
+.card {
+  transition: all 0.3s ease;
+}
 
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+.nav-hover {
+  transition: all 0.3s ease;
+}
+
+.nav-hover:hover {
+  transform: translateY(-3px) scale(1.05);
+  text-shadow: 0 0 8px rgba(255,255,255,0.7);
+}
